@@ -107,7 +107,9 @@
                 <label for="inputState">Category</label>
                 <select id="inputState" name="category" class="form-control">
                     <option selected>Choose...</option>
-                    <option>...</option>
+                    {% for cat in list_category %}
+                    <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -116,6 +118,12 @@
                 <input class="form-check-input" name="reviewed" type="checkbox" id="reviewed">
                 <label class="form-check-label" for="reviewed">
                     Reviewed
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" name="not_reviewed" type="checkbox" id="notReviewed">
+                <label class="form-check-label" for="notReviewed">
+                    Not Reviewed
                 </label>
             </div>
         </div>
