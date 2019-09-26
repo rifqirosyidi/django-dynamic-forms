@@ -59,7 +59,7 @@
         <div class="form-row">
             <div class="form-group col-12">
                 <div class="input-group">
-                    <input type="search" placeholder="Title Contains ..." class="form-control py-2 border-right-0 border">
+                    <input type="search" name="title_contains" placeholder="Title Contains ..." class="form-control py-2 border-right-0 border">
                     <span class="input-group-append">
                         <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
                     </span>
@@ -69,7 +69,7 @@
         <div class="form-row">
             <div class="form-group col-12">
                 <div class="input-group">
-                    <input type="search" placeholder="Title Exact ..." class="form-control py-2 border-right-0 border">
+                    <input type="search" name="id_exact" placeholder="ID Exact ..." class="form-control py-2 border-right-0 border">
                     <span class="input-group-append">
                         <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
                     </span>
@@ -79,7 +79,7 @@
         <div class="form-row">
             <div class="form-group col-12">
                 <div class="input-group">
-                    <input type="search" placeholder="Title or Author ..." class="form-control py-2 border-right-0 border">
+                    <input type="search" name="title_or_author" placeholder="Title or Author ..." class="form-control py-2 border-right-0 border">
                     <span class="input-group-append">
                         <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
                     </span>
@@ -89,23 +89,23 @@
         <div class="form-row">
             <div class="form-group col-md-2 col-lg-2">
                 <label for="viewCountMin">Minimum View Count</label>
-                <input type="number" min=0 class="form-control" id="viewCountMin" placeholder="0">
+                <input type="number" name="view_count_min" min=0 class="form-control" id="viewCountMin" placeholder="0">
             </div>
             <div class="form-group col-md-2 col-lg-2">
                 <label for="viewCountMax">Maximum View Count</label>
-                <input type="number" min=0 class="form-control" id="viewCountMax" placeholder="10000?">
+                <input type="number" name="view_count_max" min=0 class="form-control" id="viewCountMax" placeholder="10000?">
             </div>
             <div class="form-group col-md-2 col-lg-2">
                 <label for="publishDateMin">Publish Date Minimum</label>
-                <input type="date" class="form-control" id="publishDateMin">
+                <input type="date" name="date_min" class="form-control" id="publishDateMin">
             </div>
             <div class="form-group col-md-2 col-lg-2">
                 <label for="publishDateMax">Publish Date Maximum</label>
-                <input type="date" class="form-control" id="publishDateMax">
+                <input type="date" name="date_max" class="form-control" id="publishDateMax">
             </div>
             <div class="form-group col-md-4">
                 <label for="inputState">Category</label>
-                <select id="inputState" class="form-control">
+                <select id="inputState" name="category" class="form-control">
                     <option selected>Choose...</option>
                     <option>...</option>
                 </select>
@@ -113,7 +113,7 @@
         </div>
         <div class="form-group">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="reviewed">
+                <input class="form-check-input" name="reviewed" type="checkbox" id="reviewed">
                 <label class="form-check-label" for="reviewed">
                     Reviewed
                 </label>
@@ -121,6 +121,42 @@
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
+
+    <hr />
+
+    <div class="table-responsive-md table-responsive-sm">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Category</th>
+                <th scope="col">Publish Date</th>
+                <th scope="col">Views</th>
+                <th scope="col">Reviewed</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for journal in query_set %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td scope="col">{{ journal.title }}</td>
+                <td scope="col">{{ journal.author }}</td>
+                <td scope="col">
+                    {% for category in journal.category.all %}
+                    {{ category }}
+                    {% endfor %}
+                </td>
+                <td scope="col">{{ journal.publish_date }}</td>
+                <td scope="col">{{ journal.views }}</td>
+                <td scope="col">{{ journal.reviewed }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 </main><!-- /.container -->
 
 <!-- Bootstrap core JavaScript
