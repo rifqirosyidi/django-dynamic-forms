@@ -20,8 +20,7 @@ def bootstrap_filter_view(request):
     date_min = request.GET.get('date_min')
     date_max = request.GET.get('date_max')
     category = request.GET.get('category')
-    reviewed = request.GET.get('reviewed')
-    not_reviewed = request.GET.get('not_reviewed')
+    review = request.GET.get('review')
 
     if is_query_params_valid(title_contains):
         qs = qs.filter(title__icontains=title_contains)
@@ -54,10 +53,10 @@ def bootstrap_filter_view(request):
         qs = qs.filter(category__name=category)
 
     # Reviewed
-    if reviewed == 'on':
+    if review == 'reviewed':
         qs = qs.filter(reviewed=True)
 
-    elif not_reviewed == 'on':
+    elif review == 'not_reviewed':
         qs = qs.filter(reviewed=False)
 
     context = {
